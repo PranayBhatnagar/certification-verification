@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Certificate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Add Certificate</h1>
+        <form action="{{ url_for('add_certificate') }}" method="post" enctype="multipart/form-data">
+            <label for="intern_name">Intern Name:</label>
+            <input type="text" id="intern_name" name="intern_name" required><br>
+            
+            <label for="job_role">Job Role:</label>
+            <input type="text" id="job_role" name="job_role" required><br>
+            
+            <label for="issue_date">Issue Date:</label>
+            <input type="date" id="issue_date" name="issue_date" required><br>
+            
+            <label for="certificate_image">Certificate Image:</label>
+            <input type="file" id="certificate_image" name="certificate_image"><br>
+            
+            <label for="other_details">Other Details:</label>
+            <textarea id="other_details" name="other_details"></textarea><br>
+            
+            <button type="submit">Add Certificate</button>
+        </form>
+    </div>
+</body>
+</html>
