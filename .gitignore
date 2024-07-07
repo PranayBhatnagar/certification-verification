@@ -1,0 +1,3 @@
+# In .gitignore
+__pycache__/
+database.db
