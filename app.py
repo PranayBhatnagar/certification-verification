@@ -1,11 +1,12 @@
 import os
 import sqlite3
 import uuid
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, session, flash
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/certificates'
+app.secret_key = 'supersecretkey'  # Needed for session management
 
 # Create upload folder if it doesn't exist
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -32,8 +33,47 @@ def init_db():
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        # Process form data here (e.g., send email, save to database)
+        flash('Thank you for contacting us! We will get back to you soon.', 'success')
+        return redirect(url_for('contact'))
+    return render_template('contact.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == 'admin' and password == 'PROTECTED':
+            session['logged_in'] = True
+            return redirect(url_for('add_certificate'))
+        else:
+            return "Invalid credentials. Please try again."
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('index'))
+
+
+
+
 @app.route('/add_certificate', methods=['GET', 'POST'])
 def add_certificate():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
     if request.method == 'POST':
         intern_name = request.form['intern_name']
         job_role = request.form['job_role']
@@ -45,7 +85,6 @@ def add_certificate():
             filename = secure_filename(certificate_image.filename)
             certificate_image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             certificate_image.save(certificate_image_path)
-            # Store relative path
             certificate_image_path = f'certificates/{filename}'
         else:
             certificate_image_path = None
@@ -80,8 +119,6 @@ def verify_certificate(certid):
     conn.close()
     
     if certificate:
-        # Debug output
-        print(f'Certificate Image Path: {certificate[5]}')
         return render_template('verify.html', certificate=certificate)
     else:
         return "Certificate not found", 404

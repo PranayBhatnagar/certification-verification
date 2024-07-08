@@ -7,24 +7,32 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <header>
+        <div class="header-container">
+            <h1 class="company-name">Radiant Services and Marketing Private Limited</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <div class="container">
         <h1>Add Certificate</h1>
         <form action="{{ url_for('add_certificate') }}" method="post" enctype="multipart/form-data">
             <label for="intern_name">Intern Name:</label>
             <input type="text" id="intern_name" name="intern_name" required><br>
-            
             <label for="job_role">Job Role:</label>
             <input type="text" id="job_role" name="job_role" required><br>
-            
             <label for="issue_date">Issue Date:</label>
             <input type="date" id="issue_date" name="issue_date" required><br>
-            
             <label for="certificate_image">Certificate Image:</label>
-            <input type="file" id="certificate_image" name="certificate_image"><br>
-            
+            <input type="file" id="certificate_image" name="certificate_image" required><br>
             <label for="other_details">Other Details:</label>
             <textarea id="other_details" name="other_details"></textarea><br>
-            
             <button type="submit">Add Certificate</button>
         </form>
     </div>

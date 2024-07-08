@@ -7,26 +7,34 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <header>
+        <div class="header-container">
+            <h1 class="company-name">Radiant Services and Marketing Private Limited</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <div class="container">
-        <h1>Certificate Verification</h1>
-        <form action="{{ url_for('verify') }}" method="post" class="verify-form">
-            <label for="certid">Enter Certificate ID:</label>
-            <input type="text" id="certid" name="certid" required>
-            <button type="submit">Verify</button>
-        </form>
+        <h1>Verify Certificate</h1>
         {% if certificate %}
-            <div class="certificate-details">
-                <h2>Certificate Details</h2>
-                <p><strong>Intern Name:</strong> {{ certificate[1] }}</p>
-                <p><strong>Job Role:</strong> {{ certificate[2] }}</p>
-                <p><strong>Certificate ID:</strong> {{ certificate[3] }}</p>
-                <p><strong>Issue Date:</strong> {{ certificate[4] }}</p>
-                {% if certificate[5] %}
-                    <p><strong>Certificate Image:</strong></p>
-                    <img src="{{ url_for('static', filename=certificate[5]) }}" alt="Certificate Image">
-                {% endif %}
-                <p><strong>Other Details:</strong> {{ certificate[6] }}</p>
-            </div>
+            <h2>Certificate Details</h2>
+            <p><strong>Intern Name:</strong> {{ certificate[1] }}</p>
+            <p><strong>Job Role:</strong> {{ certificate[2] }}</p>
+            <p><strong>Issue Date:</strong> {{ certificate[4] }}</p>
+            <p><strong>Other Details:</strong> {{ certificate[6] }}</p>
+            <img src="{{ url_for('static', filename=certificate[5]) }}" alt="Certificate Image" width="500">
+        {% else %}
+            <form action="{{ url_for('verify') }}" method="post" class="verify-form">
+                <label for="certid">Enter Certificate ID:</label>
+                <input type="text" id="certid" name="certid" required>
+                <button type="submit">Verify</button>
+            </form>
         {% endif %}
     </div>
 </body>

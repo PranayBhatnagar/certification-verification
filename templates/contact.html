@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1 class="company-name">Radiant Services and Marketing Private Limited</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <div class="contact-info">
+            <h2>Company Address</h2>
+            <p>22 MAIRGANJ, SULEM SARAI,</p>
+            <p>Prayagraj, Uttar Pradesh - 211001</p>
+            <p>Email: info@radiantservices.com</p>
+            <p>Phone: +91 9918901250</p>
+        </div>
+        <div class="contact-form">
+            <h2>Get in Touch</h2>
+            <form action="{{ url_for('contact') }}" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

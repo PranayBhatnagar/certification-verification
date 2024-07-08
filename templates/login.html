@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Verification</title>
+    <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -13,7 +13,7 @@
             <nav>
                 <ul>
                     <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="https://www.tofler.in/radiant-services-and-marketing-private-limited/company/U29308UP2016PTC086149">About Us</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
                     <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
                     <li><a href="{{ url_for('login') }}">Login</a></li>
                 </ul>
@@ -21,12 +21,16 @@
         </div>
     </header>
     <div class="container">
-        <h1>Certificate Verification</h1>
-        <form action="{{ url_for('verify') }}" method="post" class="verify-form">
-            <label for="certid">Enter Certificate ID:</label>
-            <input type="text" id="certid" name="certid" required>
-            <button type="submit">Verify</button>
-        </form>
+        <div class="login-container">
+            <h1>Login</h1>
+            <form action="{{ url_for('login') }}" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
