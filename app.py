@@ -45,6 +45,8 @@ def add_certificate():
             filename = secure_filename(certificate_image.filename)
             certificate_image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             certificate_image.save(certificate_image_path)
+            # Store relative path
+            certificate_image_path = f'certificates/{filename}'
         else:
             certificate_image_path = None
         
@@ -78,6 +80,8 @@ def verify_certificate(certid):
     conn.close()
     
     if certificate:
+        # Debug output
+        print(f'Certificate Image Path: {certificate[5]}')
         return render_template('verify.html', certificate=certificate)
     else:
         return "Certificate not found", 404
